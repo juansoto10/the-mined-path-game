@@ -29,13 +29,16 @@ function startGame() {
     console.log({ canvasSize, elementsSize })
 
     game.font = elementsSize + 'px Verdana';
-    game.textAlign = 'end'
+    game.textAlign = 'end';
 
-    for (let i = 1; i <= 10; i++) {
-        console.log(i);
-        for (let j = 1; j <= 10; j++) {
-            game.fillText(emojis['X'], elementsSize * i + 5, elementsSize * j);
-            console.log(j);
+    const map = maps[0];
+    const mapRows = map.match(/[IXO\-]+]/g);
+    const mapRowsCols = mapRows.map(row => row.split());
+    console.log({map, mapRows, mapRowsCols});
+
+    for (let row = 1; row <= 10; row++) {
+        for (let col = 1; col <= 10; col++) {
+            game.fillText(emojis[mapRowsCols[row - 1][col - 1]], elementsSize * col + 7, elementsSize * row - 7);
         }
     }
 }
