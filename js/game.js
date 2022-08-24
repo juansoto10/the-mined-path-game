@@ -35,15 +35,21 @@ function startGame() {
     const mapRows = map.trim().split('\n');
     const mapRowsCols = mapRows.map(row => row.trim().split(''));
     console.log({map, mapRows, mapRowsCols});
-    console.log(mapRowsCols[2][0]);
+    // console.log(mapRowsCols[2][0]);
 
-    for (let row = 1; row <= 10; row++) {
-        for (let col = 1; col <= 10; col++) {
-            game.fillText(emojis[mapRowsCols[row - 1][col - 1]], elementsSize * row + 7, elementsSize * col - 7);
-        }
-    }
+    mapRowsCols.forEach((row, rowIndex) => {
+        row.forEach((col, colIndex) => {
+            const emoji = emojis[col];
+            const posX = elementsSize * (colIndex + 1);
+            const posY = elementsSize * (rowIndex + 1);
+            game.fillText(emoji, posX, posY);
+            console.log({ row, rowIndex, col, colIndex, emoji});
+        })
+    });
+
+    // for (let row = 1; row <= 10; row++) {
+    //     for (let col = 1; col <= 10; col++) {
+    //         game.fillText(emojis[mapRowsCols[row - 1][col - 1]], elementsSize * row + 7, elementsSize * col - 7);
+    //     }
+    // }
 }
-
-// const map = maps[0];
-//     const mapRows = map.match(/[IXO\-]+]/g)
-//     const mapRowsCols = mapRows.map(row => row.split
