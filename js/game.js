@@ -1,3 +1,5 @@
+// Branch: exp
+
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
 
@@ -9,7 +11,7 @@ const btnDown = document.querySelector('#down');
 let canvasSize;
 let elementsSize;
 
-// - Player position and gift position object -
+// -- Player position and gift position object --
 const playerPos = {
     x: undefined,
     y: undefined,
@@ -20,34 +22,34 @@ const giftPos = {
     y: undefined,
 }
 
-// - Events when loading and resizing occurs -
+// -- Events when loading and resizing occurs --
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
 
 // - Truncate numbers -
-function trunc(num, positions) {
-    let numberToString = num.toString();
-    let stringLength = numberToString.length;
-    let decimalLength = numberToString.indexOf('.') + 1;
-    let subString = numberToString.substring(0, decimalLength + positions)
-    return Number(subString);
-}
+// function trunc(num, positions) {
+//     let numberToString = num.toString();
+//     let stringLength = numberToString.length;
+//     let decimalLength = numberToString.indexOf('.') + 1;
+//     let subString = numberToString.substring(0, decimalLength + positions)
+//     return Number(subString);
+// }
 
 // - Setting canvas size -
 function setCanvasSize() {
     if (window.innerHeight > window.innerWidth) {
-        initialSize = window.innerWidth * 0.8;
-        canvasSize = trunc(initialSize, 4)
+        canvasSize = window.innerWidth * 0.8;
+        // canvasSize = trunc(initialSize, 4)
     } else {
-        initialSize = window.innerHeight * 0.8;
-        canvasSize = trunc(initialSize, 4)
+        canvasSize = window.innerHeight * 0.8;
+        // canvasSize = trunc(initialSize, 4)
     }
 
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
-    initialElementsSize = canvasSize / 10;
-    elementsSize = trunc(initialElementsSize, 4);
+    elementsSize = canvasSize / 10;
+    // elementsSize = trunc(initialElementsSize, 4);
 
     startGame();
 }
@@ -68,8 +70,8 @@ function startGame() {
     mapRowsCols.forEach((row, rowIndex) => {
         row.forEach((col, colIndex) => {
             const emoji = emojis[col];
-            const posX = trunc(elementsSize * (colIndex + 1), 4);
-            const posY = trunc(elementsSize * (rowIndex + 1), 4);
+            const posX = elementsSize * (colIndex + 1);
+            const posY = elementsSize * (rowIndex + 1);
 
             // console.log({ row, rowIndex, col, colIndex, emoji});
 
@@ -100,8 +102,8 @@ function movePlayer() {
     // let truncGiftPosY = trunc(giftPos.y, 4);
     // console.log({truncPlayerPosX, truncPlayerPosY, truncGiftPosX, truncGiftPosY});
 
-    const giftCollisionX = trunc(playerPos.x, 4) < trunc(giftPos.x, 4) + 0.1 && trunc(playerPos.y, 4) > trunc(giftPos.y, 4) - 0.1;
-    const giftCollisionY = trunc(playerPos.y, 4) < trunc(giftPos.y, 4) + 0.1 && trunc(playerPos.y, 4) > trunc(giftPos.y, 4) - 0.1;
+    const giftCollisionX = playerPos.x < giftPos.x + 0.1 && playerPos.x > giftPos.x - 0.1;
+    const giftCollisionY = playerPos.y < giftPos.y + 0.1 && playerPos.y > giftPos.y - 0.1;
     const giftCollision = giftCollisionX && giftCollisionY;
 
     if (giftCollision) {
@@ -109,7 +111,7 @@ function movePlayer() {
     } 
 
     console.log(`x = ${playerPos.x}, y = ${playerPos.y}`)
-    game.fillText(emojis['PLAYER'], trunc(playerPos.x, 4), trunc(playerPos.y, 4)); 
+    game.fillText(emojis['PLAYER'], playerPos.x, playerPos.y); 
 }
 
 // - Events -
@@ -133,7 +135,7 @@ function moveUp() {
     if ((playerPos.y - elementsSize) < elementsSize - 0.01) {
         console.log('OUT');
     } else {
-        playerPos.y = trunc(playerPos.y - elementsSize, 4);
+        playerPos.y -= elementsSize;
         startGame();
     }
 }
@@ -143,27 +145,27 @@ function moveLeft() {
     if ((playerPos.x - elementsSize) < elementsSize - 0.01) {
         console.log('OUT');
     } else {
-        playerPos.x = trunc(playerPos.x - elementsSize, 4);
+        playerPos.x -= elementsSize;
         startGame();
     }
 }
 function moveRight() {
     console.log('Right pressed');
     
-    if ((playerPos.x + elementsSize) > canvasSize) {
+    if ((playerPos.x + elementsSize) > canvasSize + 0.01) {
         console.log('OUT')
     } else {
-        playerPos.x = trunc(playerPos.x + elementsSize, 4);
+        playerPos.x += elementsSize;
         startGame();
     }
 }
 function moveDown() {
     console.log('Down pressed');
 
-    if ((playerPos.y + elementsSize) > canvasSize) {
+    if ((playerPos.y + elementsSize) > canvasSize + 0.01) {
         console.log('OUT');
     } else {
-        playerPos.y = trunc(playerPos.y + elementsSize, 4);
+        playerPos.y += elementsSize;
         startGame();
     }  
 }
