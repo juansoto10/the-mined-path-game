@@ -9,6 +9,10 @@ const emojis = {
     'WIN':'🏆',
 };
 
+// '': None of the relevant elements
+// index: bombs 
+// []
+
 const maps = [];
 maps.push(`
   IXXXXXXXXX
@@ -45,4 +49,16 @@ maps.push(`
   XX-XXXXXXX
   XX-----OXX
   XXXXXXXXXX
+`);
+maps.push(`
+  XXXXXX---I
+  XXXXXX-XXX
+  XXXXXX-XXX
+  -----X-XXX
+  -XXX-X----
+  -XXX-X-XXX
+  -XXX---XXX
+  ---XXXXXXX
+  XX-XXXXXXX
+  XXOXXXXXXX
 `);

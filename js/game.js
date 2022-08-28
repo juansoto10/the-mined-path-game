@@ -10,6 +10,7 @@ const btnDown = document.querySelector('#down');
 
 let canvasSize;
 let elementsSize;
+let level = 0;
 
 // -- Player position and gift position object --
 const playerPos = {
@@ -21,6 +22,8 @@ const giftPos = {
     x: undefined,
     y: undefined,
 }
+
+let bombsPos = [];
 
 // -- Events when loading and resizing occurs --
 window.addEventListener('load', setCanvasSize);
@@ -39,17 +42,14 @@ window.addEventListener('resize', setCanvasSize);
 function setCanvasSize() {
     if (window.innerHeight > window.innerWidth) {
         canvasSize = window.innerWidth * 0.8;
-        // canvasSize = trunc(initialSize, 4)
     } else {
         canvasSize = window.innerHeight * 0.8;
-        // canvasSize = trunc(initialSize, 4)
     }
 
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
     elementsSize = canvasSize / 10;
-    // elementsSize = trunc(initialElementsSize, 4);
 
     startGame();
 }
@@ -61,12 +61,20 @@ function startGame() {
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
 
-    const map = maps[0];
+    const map = maps[level];
+
+    if (!map) {
+        win();
+        return;
+    }
+
     const mapRows = map.trim().split('\n');
     const mapRowsCols = mapRows.map(row => row.trim().split(''));
     // console.log({map, mapRows, mapRowsCols});
 
+    bombsPos = [];
     game.clearRect(0, 0, canvasSize, canvasSize);
+
     mapRowsCols.forEach((row, rowIndex) => {
         row.forEach((col, colIndex) => {
             const emoji = emojis[col];
@@ -85,6 +93,13 @@ function startGame() {
                 giftPos.x = posX;
                 giftPos.y = posY;
                 console.log({giftPos});
+            } else if (col == 'X') {
+                bombsPos.push({
+                    x: posX,
+                    y: posY,
+                });
+                
+                // console.log({bombsPos});
             }
 
             game.fillText(emoji, posX, posY);
@@ -96,23 +111,49 @@ function startGame() {
 
 // - Render player position -
 function movePlayer() {
-    // let truncPlayerPosX = trunc(playerPos.x, 4);
-    // let truncPlayerPosY = trunc(playerPos.y, 4);
-    // let truncGiftPosX = trunc(giftPos.x, 4);
-    // let truncGiftPosY = trunc(giftPos.y, 4);
-    // console.log({truncPlayerPosX, truncPlayerPosY, truncGiftPosX, truncGiftPosY});
+    // const giftCollisionX = playerPos.x < giftPos.x + 0.1 && playerPos.x > giftPos.x - 0.1;
+    // const giftCollisionY = playerPos.y < giftPos.y + 0.1 && playerPos.y > giftPos.y - 0.1; 
+    
+    const giftCollisionX = playerPos.x.toFixed(3) == giftPos.x.toFixed(3); 
+    const giftCollisionY = playerPos.y.toFixed(3) == giftPos.y.toFixed(3);
 
-    const giftCollisionX = playerPos.x < giftPos.x + 0.1 && playerPos.x > giftPos.x - 0.1;
-    const giftCollisionY = playerPos.y < giftPos.y + 0.1 && playerPos.y > giftPos.y - 0.1;
     const giftCollision = giftCollisionX && giftCollisionY;
 
     if (giftCollision) {
-        console.log('Level up Gonorrea!');
+        levelUp()
     } 
+    
+    const bombCollision = bombsPos.find(bomb => {
+        const bombCollisionX = bomb.x.toFixed(3) == playerPos.x.toFixed(3);
+        const bombCollisionY = bomb.y.toFixed(3) == playerPos.y.toFixed(3);
+        return bombCollisionX && bombCollisionY;
+    });
+
+    if (bombCollision) {
+        console.log('No te tocaba, mano. Qué tristeza :c')
+    }
 
     console.log(`x = ${playerPos.x}, y = ${playerPos.y}`)
     game.fillText(emojis['PLAYER'], playerPos.x, playerPos.y); 
 }
+
+function levelUp() {
+    console.log('Level up Gorzobia!');
+    level++;
+    startGame();
+}
+
+function win() {
+    console.log('You have completed the game');
+}
+
+// function detectBombCollision() {
+//     bombs.forEach((bomb, bombIndex) => {
+//         row.forEach((pos, posIndex) => {
+            
+//         });
+//     });
+// }
 
 // - Events -
 window.addEventListener('keydown', moveByKeys);
