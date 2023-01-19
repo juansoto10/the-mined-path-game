@@ -26,7 +26,7 @@ window.addEventListener('resize', setCanvasSize);
 
 // - Truncate numbers -
 function trunc(num, positions) {
-    let numberToString = num.toString();
+    const numberToString = num.toString();
     let stringLength = numberToString.length;
     let decimalLength = numberToString.indexOf('.') + 1;
     let subString = numberToString.substring(0, decimalLength + positions)
