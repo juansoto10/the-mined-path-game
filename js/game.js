@@ -1,5 +1,3 @@
-// Branch: exp
-
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
 
@@ -7,10 +5,11 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
+
 const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
-const pResult = document.querySelector('#result');
+const playerResult = document.querySelector('#result');
 
 let canvasSize;
 let elementsSize;
@@ -39,6 +38,7 @@ let bombsPos = [];
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
 
+
 // - Truncate numbers -
 // function trunc(num, positions) {
 //     let numberToString = num.toString();
@@ -47,6 +47,7 @@ window.addEventListener('resize', setCanvasSize);
 //     let subString = numberToString.substring(0, decimalLength + positions)
 //     return Number(subString);
 // }
+
 
 // -- Setting canvas size --
 function setCanvasSize() {
@@ -80,7 +81,7 @@ function startGame() {
 
     if (!timeStart) {
         timeStart = Date.now();
-        timeInterval = setInterval(showTime, 20);
+        timeInterval = setInterval(showTime, 0.0000000000001);
         showRecord();
     }
     
@@ -127,6 +128,7 @@ function startGame() {
 
     movePlayer();
 }
+
 
 // -- Render player position --
 function movePlayer() {
@@ -176,11 +178,10 @@ function lostLevel() {
     console.log(`Lives: ${lives}`);
 
     if (lives <= 0) {
-        // { lose()
         level = 0;
         lives = 3;
         timeStart = undefined;
-        // lose() }
+        // Lose message <--
     }
 
     playerPos.x = undefined;
@@ -190,52 +191,56 @@ function lostLevel() {
 
 function win() {
     console.log('You have completed the game, Manito');
+    // Win message <--
     clearInterval(timeInterval);
     
     // function setRecord() ***
     const recordTime = localStorage.getItem('record_time');
-    const playerTime = (Date.now() - timeStart)/1000;
+    let playerTime = ((Date.now() - timeStart)/1000).toFixed(2);
+    playerTime = Number(playerTime);
 
     if (recordTime) {
         if (recordTime >= playerTime) {
             localStorage.setItem('record_time', playerTime);
-            pResult.innerHTML = 'New record reached';
+            playerResult.innerHTML = `New record reached: ${playerTime}`;
         } else {
-            pResult.innerHTML = 'You did not beat the record :c';
+            playerResult.innerHTML = `You did not beat the record 💀. Your time: ${playerTime}`;
         }
     } else {
         localStorage.setItem('record_time', playerTime);
-        pResult.innerHTML = 'Prove yourself 😌, get a new record';
+        playerResult.innerHTML = 'Prove yourself 😌, get a new record';
     }
 
     console.log({recordTime, playerTime});
 }
 
+
+// -- Lives, Time and Record --
 function showLives() {
     const heartsArray = Array(lives).fill(emojis['HEART']);
     console.log(heartsArray);
 
-    // spanLives = '';
-    // heartsArray.forEach(heart => spanLives.append(heart))
     spanLives.innerHTML = emojis['HEART'].repeat(lives);
 }
 
 function showTime() {
-    spanTime.innerHTML = (Date.now() - timeStart)/1000;
+    spanTime.innerHTML = ((Date.now() - timeStart)/1000).toFixed(2);
 }
 
 function showRecord() {
     spanRecord.innerHTML = localStorage.getItem('record_time');
 }
 
-// - Events -
+
+// -- Events --
 window.addEventListener('keydown', moveByKeys);
 btnUp.addEventListener('click', moveUp);
 btnLeft.addEventListener('click', moveLeft);
 btnRight.addEventListener('click', moveRight);
 btnDown.addEventListener('click', moveDown);
 
-// - Player movement -
+
+// -- Player movement --
 function moveByKeys(event) {
     console.log(event);
     if (event.key == 'ArrowUp') moveUp();
@@ -243,6 +248,7 @@ function moveByKeys(event) {
     else if (event.key == 'ArrowRight') moveRight();
     else if (event.key == 'ArrowDown') moveDown();
 }
+
 function moveUp() {
     console.log('Up pressed');
 
@@ -253,6 +259,7 @@ function moveUp() {
         startGame();
     }
 }
+
 function moveLeft() {
     console.log('Left pressed');
     
@@ -263,6 +270,7 @@ function moveLeft() {
         startGame();
     }
 }
+
 function moveRight() {
     console.log('Right pressed');
     
@@ -273,6 +281,7 @@ function moveRight() {
         startGame();
     }
 }
+
 function moveDown() {
     console.log('Down pressed');
 
