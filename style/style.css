@@ -6,6 +6,10 @@ body {
     padding: 0;
 }
 
+.inactive {
+    display: none;
+}
+
 .game-container {
     display: flex;
     align-items: center;

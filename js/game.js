@@ -52,15 +52,15 @@ window.addEventListener('resize', setCanvasSize);
 // -- Setting canvas size --
 function setCanvasSize() {
     if (window.innerHeight > window.innerWidth) {
-        canvasSize = window.innerWidth * 0.8;
+        canvasSize = window.innerWidth * 0.7 + 30;
     } else {
-        canvasSize = window.innerHeight * 0.8;
+        canvasSize = window.innerHeight * 0.7 + 30;
     }
 
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
-    elementsSize = canvasSize / 10;
+    elementsSize = (canvasSize - 30) / 10;
 
     startGame();
 }
@@ -69,7 +69,7 @@ function setCanvasSize() {
 function startGame() {
     console.log({ canvasSize, elementsSize })
 
-    game.font = elementsSize + 'px Verdana';
+    game.font = (elementsSize - 12) + 'px Verdana';
     game.textAlign = 'end';
 
     const map = maps[level];
@@ -98,7 +98,7 @@ function startGame() {
     mapRowsCols.forEach((row, rowIndex) => {
         row.forEach((col, colIndex) => {
             const emoji = emojis[col];
-            const posX = elementsSize * (colIndex + 1);
+            const posX = elementsSize * (colIndex + 1) + 20;
             const posY = elementsSize * (rowIndex + 1);
 
             // console.log({ row, rowIndex, col, colIndex, emoji });
@@ -150,7 +150,8 @@ function movePlayer() {
     });
 
     if (bombCollision) {
-        lostLevel();
+        /* game.fillText(emojis['COLLISION'], playerPos.x, playerPos.y);  */
+        lose();
     }
 
     console.log(`x = ${playerPos.x}, y = ${playerPos.y}`)
@@ -171,8 +172,11 @@ function levelUp() {
     startGame();
 }
 
-function lostLevel() {
+function lose() {
     console.log('No te tocaba, mano. Qué tristeza :c');
+
+    game.fillText(emojis['COLLISION'], playerPos.x, playerPos.y);
+
     lives--;
 
     console.log(`Lives: ${lives}`);
@@ -181,12 +185,18 @@ function lostLevel() {
         level = 0;
         lives = 3;
         timeStart = undefined;
-        // Lose message <--
+        playerResult.innerHTML = 'You lose all your lives 💀. Try again.';
+        setTimeout(playAgain, 3500)
+        // Do something in PlayAgain!! and remove return
+        return
     }
-
+    
     playerPos.x = undefined;
     playerPos.y = undefined;
-    startGame();
+
+    
+    setTimeout(startGame, 280)
+    /* startGame(); */
 }
 
 function win() {
@@ -204,7 +214,7 @@ function win() {
             localStorage.setItem('record_time', playerTime);
             playerResult.innerHTML = `New record reached: ${playerTime}`;
         } else {
-            playerResult.innerHTML = `You did not beat the record 💀. Your time: ${playerTime}`;
+            playerResult.innerHTML = `You won, but you did not beat the record 💀. Your time: ${playerTime}`;
         }
     } else {
         localStorage.setItem('record_time', playerTime);
@@ -212,6 +222,10 @@ function win() {
     }
 
     console.log({recordTime, playerTime});
+}
+
+function playAgain() {
+    playerResult.innerHTML = '';
 }
 
 
@@ -274,7 +288,7 @@ function moveLeft() {
 function moveRight() {
     console.log('Right pressed');
     
-    if ((playerPos.x + elementsSize) > canvasSize + 0.01) {
+    if ((playerPos.x + elementsSize) > (canvasSize) + 0.01) {
         console.log('OUT')
     } else {
         playerPos.x += elementsSize;
@@ -285,7 +299,7 @@ function moveRight() {
 function moveDown() {
     console.log('Down pressed');
 
-    if ((playerPos.y + elementsSize) > canvasSize + 0.01) {
+    if ((playerPos.y + elementsSize) > (canvasSize) + 0.01) {
         console.log('OUT');
     } else {
         playerPos.y += elementsSize;
