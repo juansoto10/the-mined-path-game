@@ -1,48 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/style.css">
-    <title>The Mined Path Game</title>
-</head>
-<body>
-    <div class="game-container">
-        <!-- <header>
-            <div>
-                <h1>The Minefield and The Parrot Game</h1>
-                <p>
-                    Welcome to The Minefield and The Parrot Game! <br>
-                    In this simple game you have to guide the mother parrot to her nest through several levels. A cruel human cut the feathers off her wings but she managed to escape and now she has to walk, avoiding the multiple bombs that are along the way. <br>
-                    Can you help the mother parrot to be happy and reunite with her beautiful family? At the end you will see the time it took you to achieve it. Dare to break a new record!
-                </p>
-            </div>
-            <div>
-                <button>Start Game</button>
-                <button class="inactive">Try Again</button>
-            </div>
-        </header> -->
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="./style/style.css">
+      <title>The Minefield Game</title>
+  </head>
+  <body>
+    <div class="game-cont">
+      <header>
+        <div class="game__text">
+          <h1>The Minefield Game</h1>
+          <p>
+              Welcome to The Minefield Game! <br><br>
+              In this simple game you have to guide the mother parrot to her nest through several levels. A cruel human cut the feathers off her wings but she managed to escape and now she has to walk, avoiding the multiple bombs that are along the way. <br><br>
+              Can you help the mother parrot to be happy and reunite with her beautiful family? At the end you'll see the time it took you to achieve it. Dare to break a new record!
+          </p>
+        </div> 
+      </header>
 
+      <div class="canvas-cont">
         <canvas id="game"></canvas>
 
-        <div class="btns">
-            <button id="up">Up</button>
-            <button id="left">Left</button>
-            <button id="right">Right</button>
-            <button id="down">Down</button>          
-        </div>
-        
         <div class="messages">
-            <!-- TODO -->
-            <p>👀 Lives: <span id="lives"></span></p>
-            <p>⏳ Time(s): <span id="time"></span></p>
-            <p>⏳ Record(s): <span id="record"></span></p>
-            <p id="result"></p>
+          <p>👀 Lives: <span id="lives"></span></p>
+          <p>⏳ Time(s): <span id="time"></span></p>
+          <p>⏳ Record(s): <span id="record"></span></p>
         </div>
+      </div>
+
+      <div class="btns">
+        <div class="game__btns">
+          <button id="start">Start Game</button>
+          <button id="try-again" class="inactive">Try Again</button>
+        </div>
+
+        <div class="move__btns">
+          <div>
+            <button id="up"><img src="./images/icons/up.png" alt="arrow up"></button>
+          </div>
+          
+          <button id="left"><img src="./images/icons/left.png" alt="arrow left"></button>
+          <button id="down"><img src="./images/icons/down.png" alt="arrow down"></button>
+          <button id="right"><img src="./images/icons/right.png" alt="arrow right"></button>       
+        </div>
+
+        <p id="result"></p>
+      </div>   
     </div>
 
     <script src="./js/maps.js"></script>
     <script src="./js/game.js"></script>
-</body>
+  </body>
 </html>
