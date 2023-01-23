@@ -48,14 +48,29 @@ window.addEventListener('resize', setCanvasSize);
 //     return Number(subString);
 // }
 
+// CANVAS ANTES
+/* if (window.innerHeight > window.innerWidth) {
+    canvasSize = window.innerWidth * 0.7 + 30;
+} else {
+    if (window.innerWidth < 1660) {
+        canvasSize = window.innerWidth * 0.35 + 30;
+    } else {
+        canvasSize = window.innerHeight * 0.68 + 30;
+    }
+} */
+
 
 // -- Setting canvas size --
 function setCanvasSize() {
-    if (window.innerHeight > window.innerWidth) {
-        canvasSize = window.innerWidth * 0.7 + 30;
+    if (window.innerWidth <= 670) {
+        canvasSize = window.innerWidth * 0.68 + 30;
+    } else if (window.innerWidth <= 1000) {
+        canvasSize = window.innerWidth * 0.47 + 30;
     } else {
-        canvasSize = window.innerHeight * 0.7 + 30;
+        canvasSize = window.innerWidth * 0.32 + 30;
     }
+    
+
 
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
@@ -214,11 +229,11 @@ function win() {
             localStorage.setItem('record_time', playerTime);
             playerResult.innerHTML = `New record reached: ${playerTime}`;
         } else {
-            playerResult.innerHTML = `You won, but you did not beat the record 💀. Your time: ${playerTime}`;
+            playerResult.innerHTML = `You won, but you did not beat the record 💀. Your time: ${playerTime} s`;
         }
     } else {
         localStorage.setItem('record_time', playerTime);
-        playerResult.innerHTML = 'Prove yourself 😌, get a new record';
+        playerResult.innerHTML = `You won and set a new record! Your time: ${playerTime} s. Prove yourself again 😌`;
     }
 
     console.log({recordTime, playerTime});

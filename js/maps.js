@@ -9,7 +9,7 @@ const emojis = {
   'BURNT-CHICKEN': '🍗',
   'GAME_OVER': '👎',
   'WIN': '🏆',
-  'HEART': '💚',
+  'HEART': '💜',
   'TIGER': '🐅',
 };
 
