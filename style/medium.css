@@ -19,37 +19,29 @@
 header {
   width: 100vw;
   height: 100vh;
-  font-size: 1.8rem;
-  padding: 20px 20px 20px 40px;
-  background-color: #C197D2;
+  padding: 20px 100px 20px;;
 }
 
 /* .game__text {
   width: 100%;
-}
+} */
+
+/* ********************* */
 .game__text h1 {
-  font-family: var(--main-font);
-  font-size: 4.4rem;
-  line-height: 6rem;
+  font-size: 3.4rem;
+  line-height: 5rem;
   margin-bottom: 50px;
-  align-self: flex-start;
-  text-shadow: 2px 2px 6px #613659;
 }
 .game__text p {
   margin-bottom: 45px;
-  font-family: var(--sec-font);
-  font-size: 2.8rem;
-} */
+  font-size: 2.4rem;
+} 
 
 
 /* CANVAS CONTAINER */
 
 /* ********************** */
 .canvas-cont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   width: 70vw;
   height: 100vh;
   padding: 20px;
@@ -62,97 +54,100 @@ header {
   background-image: url(../images/imgs/textura2.jpg);
   margin: 35px 0 35px;
 }
+*/
 
 .messages {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   max-width: 200px;
 }
+/*  */
 .messages p {
-  line-height: 3.5rem;
-  width: 43rem;
-  font-size: 1.7rem;
+  line-height: 2.6rem;
+  width: 30rem;
+  font-size: 1.4rem;
   margin-bottom: 8px;
 }
 .messages p #lives {
-  font-size: 2.8rem;
-} */
-
+  font-size: 2.4rem;
+} 
 
 
 /* BUTTONS */
 
 /* ************************ */
 .btns {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 30vw;
   height: 100vh;
-  padding: 30px;
-  background-color: #DEBAD6;
+  padding: 30px 15px 30px 15px;
 }
 
 button {
   background-color:#C197D2;
   color: #613659;
-  border-radius: 14px;
-  border-color: rgb(47, 36, 104);
-  margin: 0;
-  padding: 10px 20px;
-  width: 16rem;
-  font-family: var(--main-font);
+  padding: 10px;
+  width: 18vw;
+  min-width: 126px;
   font-size: 2rem;
 }
 
 button:not(:last-child) {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
-.game__btns {
-  font-size: 1.8rem;
-  display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+/* .game__btns {
   margin-bottom: 45px;
-}
+} */
 .game__btns button {
   margin: 0;
 }
 
+/* **************** */
 .move__btns {
-  height: 180px;
   display: flex;
   position: relative;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 .move__btns button {
-  height: 75px;
-  width: 75px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 6.9vw;
+  width: 6.9vw;
+  min-width: 47px;
+  min-height: 47px;
 }
 .move__btns button img {
-  height: 55px;
-}
-.move__btns div {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 5vw;
+  width: 5vw;
+  min-height: 40px;
 }
 
 .btns #result {
   height: 9.5rem;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   padding: 0 15px 0
+}
+
+@media(max-height: 510px) {
+  canvas {
+    border: 3px solid #211522;
+    border-radius: 50px;
+    box-shadow: 0px 0px 9px 7px #613659;
+    background-image: url(../images/imgs/textura2.jpg);
+    margin: 0;
+    margin-bottom: 15px;
+    margin-top: 8px;
+  }
+  .messages {
+    width: 100%;
+    max-width: 200px;
+  }
+  .messages p {
+    line-height: 2.2rem;
+    width: 23rem;
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  .messages p #lives {
+    font-size: 2.4rem;
+  } 
 }

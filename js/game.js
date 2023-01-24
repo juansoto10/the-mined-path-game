@@ -62,13 +62,28 @@ window.addEventListener('resize', setCanvasSize);
 
 // -- Setting canvas size --
 function setCanvasSize() {
-    if (window.innerWidth <= 670) {
-        canvasSize = window.innerWidth * 0.68 + 30;
-    } else if (window.innerWidth <= 1000) {
-        canvasSize = window.innerWidth * 0.47 + 30;
+    if (window.innerHeight >= 826) {
+        if (window.innerWidth <= 670) {
+            canvasSize = window.innerWidth * 0.58 + 30;
+        } else if (window.innerWidth <= 1000) {
+            canvasSize = window.innerWidth * 0.52 + 30;
+        } else {
+            canvasSize = window.innerWidth * 0.32 + 30;
+        }
     } else {
-        canvasSize = window.innerWidth * 0.32 + 30;
+        if (window.innerWidth < 440 && window.innerHeight <= 770) {
+            canvasSize = window.innerWidth * 0.7 + 30;
+        } else if (window.innerWidth <= 670 && window.innerHeight <= 770) {
+            canvasSize = window.innerHeight * 0.42 + 30;
+        } else if (window.innerWidth <= 670 && window.innerHeight > 770) {
+            canvasSize = window.innerWidth * 0.5 + 30;
+        } else if ( window.innerWidth > 670 && window.innerHeight > 510) {
+            canvasSize = window.innerWidth * 0.45 + 30;
+        } else if ( window.innerWidth > 670 && window.innerHeight < 510) {
+            canvasSize = window.innerHeight * 0.62 + 30;
+        }
     }
+    
     
 
 
