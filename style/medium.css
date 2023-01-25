@@ -1,32 +1,13 @@
-
-/* ******************** */
 .game-cont {
   height: auto;
 }
 
-
-/* HEADER */
-/* header, .game__text, .game__btns {
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  
-} */
-
-/* ********************* */
 header {
   width: 100vw;
   height: 100vh;
   padding: 20px 100px 20px;;
 }
 
-/* .game__text {
-  width: 100%;
-} */
-
-/* ********************* */
 .game__text h1 {
   font-size: 3.4rem;
   line-height: 5rem;
@@ -36,45 +17,41 @@ header {
   margin-bottom: 45px;
   font-size: 2.4rem;
 } 
+.game__text a {
+  text-decoration: none;
+  color: #00afb9;
+  text-shadow: 2px 2px 3px #613659;
+}
+.game__text a:active {
+  color: #613659;
+}
 
 
 /* CANVAS CONTAINER */
 
-/* ********************** */
 .canvas-cont {
   width: 70vw;
   height: 100vh;
   padding: 20px;
 }
 
-/* canvas {
-  border: 3px solid #211522;
-  border-radius: 50px;
-  box-shadow: 0px 0px 9px 7px #613659;
-  background-image: url(../images/imgs/textura2.jpg);
-  margin: 35px 0 35px;
-}
-*/
-
 .messages {
   width: 100%;
   max-width: 200px;
 }
-/*  */
 .messages p {
-  line-height: 2.6rem;
+  line-height: 2.1rem;
   width: 30rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   margin-bottom: 8px;
 }
 .messages p #lives {
-  font-size: 2.4rem;
+  font-size: 2.3rem;
 } 
 
 
 /* BUTTONS */
 
-/* ************************ */
 .btns {
   width: 30vw;
   height: 100vh;
@@ -82,32 +59,37 @@ header {
 }
 
 button {
-  background-color:#C197D2;
-  color: #613659;
   padding: 10px;
-  width: 18vw;
-  min-width: 126px;
-  font-size: 2rem;
+  width: 14vw;
+  height: 7rem;
+  min-width: 100px;
+  font-size: 1.6rem;
 }
-
 button:not(:last-child) {
   margin-right: 10px;
 }
 
-/* .game__btns {
-  margin-bottom: 45px;
-} */
+.game__btns {
+  margin-bottom: 25px;
+}
 .game__btns button {
   margin: 0;
+  margin-right: 14px;
+}
+.game__btns #reset {
+  width: 62px;
+  height: 40px;
+  padding: 4px;
+  font-size: 0.9rem;
+  min-width: 50px;
 }
 
-/* **************** */
 .move__btns {
   display: flex;
   position: relative;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 .move__btns button {
   height: 6.9vw;
@@ -122,17 +104,21 @@ button:not(:last-child) {
 }
 
 .btns #result {
-  height: 9.5rem;
-  font-size: 1.6rem;
+  width: 94%;
+  max-height: 19rem;
+  font-size: 1.3rem;
   padding: 0 15px 0
+}
+
+
+@media(max-width: 825px) {
+  .btns #result {
+    font-size: 1.1rem;
+  }
 }
 
 @media(max-height: 510px) {
   canvas {
-    border: 3px solid #211522;
-    border-radius: 50px;
-    box-shadow: 0px 0px 9px 7px #613659;
-    background-image: url(../images/imgs/textura2.jpg);
     margin: 0;
     margin-bottom: 15px;
     margin-top: 8px;
@@ -150,4 +136,7 @@ button:not(:last-child) {
   .messages p #lives {
     font-size: 2.4rem;
   } 
+  .btns #result {
+    font-size: 1rem;
+  }
 }

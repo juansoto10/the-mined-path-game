@@ -11,6 +11,7 @@
 
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -25,6 +26,9 @@ body {
   display: none;
 }
 
+
+/* MAIN CONTAINER*/
+
 .game-cont {
   display: flex;
   align-items: center;
@@ -36,6 +40,7 @@ body {
 
 
 /* HEADER */
+
 header, .game__text, .game__btns {
   display: flex;
   position: relative;
@@ -61,6 +66,7 @@ header {
   line-height: 6rem;
   margin-bottom: 50px;
   align-self: flex-start;
+  color: #00afb9;
   text-shadow: 2px 2px 6px #613659;
 }
 .game__text p {
@@ -71,6 +77,7 @@ header {
 
 
 /* CANVAS CONTAINER */
+
 .canvas-cont {
   display: flex;
   justify-content: center;
@@ -85,7 +92,7 @@ canvas {
   border: 2px solid #211522;
   border-radius: 30px;
   box-shadow: 0px 0px 9px 7px #613659;
-  background-image: url(../images/imgs/textura2.jpg);
+  background-image: url(../images/imgs/textura5.jpg);
   margin: 35px 0 35px;
 }
 
@@ -108,8 +115,8 @@ canvas {
 }
 
 
-
 /* BUTTONS */
+
 .btns {
   display: flex;
   flex-direction: column;
@@ -123,7 +130,8 @@ canvas {
 
 button {
   background-color:#C197D2;
-  color: #613659;
+  color: #00afb9;
+  text-shadow: 1px 1px 1px #613659;
   border-radius: 14px;
   border-color:  #211522;
   border-width: 1px;
@@ -135,10 +143,15 @@ button {
   font-family: var(--main-font);
   font-size: 2.6rem;
   box-shadow: 0 0 6px 2px #613659;
+  transition: 0.6s;
 }
-
 button:not(:last-child) {
   margin-right: 15px;
+}
+button:hover {
+  transition: 0.5s;
+  background-color: #00afb9;
+  color: #613659;
 }
 
 .game__btns {
@@ -152,11 +165,17 @@ button:not(:last-child) {
 }
 .game__btns button {
   margin: 0;
-  /* min-width: 195px; */
+  margin-right: 20px
+}
+.game__btns #reset {
+  width: 5vw;
+  height: 54px;
+  padding: 4px;
+  font-size: 1rem;
+  min-width: 74px;
 }
 
 .move__btns {
-  /* height: 180px; */
   display: flex;
   position: relative;
   flex-wrap: wrap;
@@ -197,8 +216,6 @@ button:not(:last-child) {
   .game__text h1 {
     font-size: 3.8rem;
     line-height: 5.2rem;
-    /* font-size: 4.4rem;
-    line-height: 6rem; */
     margin-bottom: 50px;
   }
   .game__text p {
@@ -228,6 +245,13 @@ button:not(:last-child) {
   .game__text p {
     margin-bottom: 40px;
   }
+  button {
+    width: 10vw;
+    min-width: 140px;
+    height: 8.6rem;
+    padding: 10px;
+    font-size: 2.2rem;
+  }
   .btns #result {
     line-height: 2.9rem;
     font-size: 1.7rem;
@@ -248,14 +272,3 @@ button:not(:last-child) {
     font-size: 1.6rem;
   }
 }
-
-
-/* @media(max-width: 440px) {
-  button { 
-    margin-top: 25px; 
-  }
-  #up, #down { 
-    margin-left: 100%; 
-    margin-right: 100%; 
-  }
-} */

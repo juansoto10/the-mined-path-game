@@ -11,6 +11,11 @@ const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
 const playerResult = document.querySelector('#result');
 
+const startButton = document.querySelector('#start');
+const tryAgainButton = document.querySelector('#try-again');
+const resetRecord = document.querySelector('#reset');
+const scrollDown = document.querySelector('#scroll-down');
+
 let canvasSize;
 let elementsSize;
 let level = 0;
@@ -72,18 +77,23 @@ function setCanvasSize() {
         }
     } else {
         if (window.innerWidth < 440 && window.innerHeight <= 770) {
-            canvasSize = window.innerWidth * 0.7 + 30;
+            canvasSize = window.innerWidth * 0.72 + 30;
         } else if (window.innerWidth <= 670 && window.innerHeight <= 770) {
-            canvasSize = window.innerHeight * 0.42 + 30;
+            canvasSize = window.innerHeight * 0.47 + 30;
         } else if (window.innerWidth <= 670 && window.innerHeight > 770) {
-            canvasSize = window.innerWidth * 0.5 + 30;
-        } else if ( window.innerWidth > 670 && window.innerHeight > 510) {
+            canvasSize = window.innerWidth * 0.76 + 30;
+        } else if (window.innerWidth > 670 && window.innerHeight > 510) {
             canvasSize = window.innerWidth * 0.45 + 30;
-        } else if ( window.innerWidth > 670 && window.innerHeight < 510) {
+        } else if (window.innerWidth > 670 && window.innerHeight < 510) {
             canvasSize = window.innerHeight * 0.62 + 30;
-        }
+        } 
     }
     
+    if (window.innerWidth <= 1000) {
+        scrollDown.classList.remove('inactive');
+    } else {
+        scrollDown.classList.add('inactive');
+    }
     
 
 
@@ -109,11 +119,11 @@ function startGame() {
         return;
     }
 
-    if (!timeStart) {
+    /* if (!timeStart) {
         timeStart = Date.now();
         timeInterval = setInterval(showTime, 0.0000000000001);
         showRecord();
-    }
+    } */
     
 
     const mapRows = map.trim().split('\n');
@@ -214,9 +224,12 @@ function lose() {
     if (lives <= 0) {
         level = 0;
         lives = 3;
+        clearInterval(timeInterval);
         timeStart = undefined;
+        startButton.classList.add('inactive');
+        tryAgainButton.classList.remove('inactive');
         playerResult.innerHTML = 'You lose all your lives 💀. Try again.';
-        setTimeout(playAgain, 3500)
+        /* setTimeout(playAgain, 3500) */
         // Do something in PlayAgain!! and remove return
         return
     }
@@ -241,12 +254,18 @@ function win() {
 
     if (recordTime) {
         if (recordTime >= playerTime) {
+            startButton.classList.add('inactive');
+            tryAgainButton.classList.remove('inactive');
             localStorage.setItem('record_time', playerTime);
-            playerResult.innerHTML = `New record reached: ${playerTime}`;
+            playerResult.innerHTML = `You won and set a new record! Your time: ${playerTime} s. Prove yourself again 😌`;
         } else {
+            startButton.classList.add('inactive');
+            tryAgainButton.classList.remove('inactive');
             playerResult.innerHTML = `You won, but you did not beat the record 💀. Your time: ${playerTime} s`;
         }
     } else {
+        startButton.classList.add('inactive');
+        tryAgainButton.classList.remove('inactive');
         localStorage.setItem('record_time', playerTime);
         playerResult.innerHTML = `You won and set a new record! Your time: ${playerTime} s. Prove yourself again 😌`;
     }
@@ -254,9 +273,41 @@ function win() {
     console.log({recordTime, playerTime});
 }
 
-function playAgain() {
-    playerResult.innerHTML = '';
+
+function play() {
+
+    startGame()
+
+    if (!timeStart) {
+        timeStart = Date.now();
+        timeInterval = setInterval(showTime, 0.0000000000001);
+        showRecord();
+    }
 }
+
+startButton.addEventListener('click', play);
+
+
+function tryAgain() {
+    playerPos.x = undefined;
+    playerPos.y = undefined;
+    playerResult.innerHTML = '';
+    level = 0;
+    lives = 3;
+    timeStart = undefined;
+
+    play()
+}
+
+tryAgainButton.addEventListener('click', tryAgain)
+
+
+function reset() {
+    console.log('reset record');
+    localStorage.removeItem('record_time');
+}
+
+resetRecord.addEventListener('click', reset);
 
 
 // -- Lives, Time and Record --
@@ -296,43 +347,51 @@ function moveByKeys(event) {
 function moveUp() {
     console.log('Up pressed');
 
-    if ((playerPos.y - elementsSize) < elementsSize - 0.01) {
-        console.log('OUT');
-    } else {
-        playerPos.y -= elementsSize;
-        startGame();
-    }
+    if (timeStart) {
+        if ((playerPos.y - elementsSize) < elementsSize - 0.01) {
+            console.log('OUT');
+        } else {
+            playerPos.y -= elementsSize;
+            startGame();
+        }
+    } 
 }
 
 function moveLeft() {
     console.log('Left pressed');
-    
-    if ((playerPos.x - elementsSize) < elementsSize - 0.01) {
-        console.log('OUT');
-    } else {
-        playerPos.x -= elementsSize;
-        startGame();
+
+    if (timeStart) {
+        if ((playerPos.x - elementsSize) < elementsSize - 0.01) {
+            console.log('OUT');
+        } else {
+            playerPos.x -= elementsSize;
+            startGame();
+        }
     }
 }
 
 function moveRight() {
     console.log('Right pressed');
-    
-    if ((playerPos.x + elementsSize) > (canvasSize) + 0.01) {
-        console.log('OUT')
-    } else {
-        playerPos.x += elementsSize;
-        startGame();
+
+    if (timeStart) {
+        if ((playerPos.x + elementsSize) > (canvasSize) + 0.01) {
+            console.log('OUT')
+        } else {
+            playerPos.x += elementsSize;
+            startGame();
+        }
     }
 }
 
 function moveDown() {
     console.log('Down pressed');
 
-    if ((playerPos.y + elementsSize) > (canvasSize) + 0.01) {
-        console.log('OUT');
-    } else {
-        playerPos.y += elementsSize;
-        startGame();
-    }  
+    if (timeStart) {
+        if ((playerPos.y + elementsSize) > (canvasSize) + 0.01) {
+            console.log('OUT');
+        } else {
+            playerPos.y += elementsSize;
+            startGame();
+        }  
+    }
 }
