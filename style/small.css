@@ -106,6 +106,7 @@ button:not(:last-child) {
 
 .move__btns {
   margin-bottom: 0;
+  margin-right: 12px;
 }
 .move__btns button {
   height: 7.4vw;
@@ -124,7 +125,7 @@ button:not(:last-child) {
 }
 
 .btns #result {
-  width: 20rem;
+  width: 18rem;
   height: 94px;
   font-size: 1.1rem;
   line-height: 1.7rem;
@@ -134,9 +135,10 @@ button:not(:last-child) {
 
 @media(max-width: 550px) {
   .btns #result {
-    width: calc(100vw - 342px);
+    width: calc(100vw - 370px);
     font-size: 1rem;
     line-height: 1.6rem;
+    height: calc(100% - 20px)
   }
 }
 
