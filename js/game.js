@@ -9,6 +9,7 @@ const btnDown = document.querySelector('#down');
 const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
+const modal = document.querySelector('.modal');
 const playerResult = document.querySelector('#result');
 
 const startButton = document.querySelector('#start');
@@ -24,6 +25,7 @@ let lives = 3;
 let timeStart;
 let timePlayer;
 let timeInterval;
+
 
 // -- Player position and gift position object --
 const playerPos = {
@@ -43,26 +45,12 @@ let bombsPos = [];
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
 
+// -- Clear modal event --
+window.addEventListener('click', clearModal);
 
-// - Truncate numbers -
-// function trunc(num, positions) {
-//     let numberToString = num.toString();
-//     let stringLength = numberToString.length;
-//     let decimalLength = numberToString.indexOf('.') + 1;
-//     let subString = numberToString.substring(0, decimalLength + positions)
-//     return Number(subString);
-// }
-
-// CANVAS ANTES
-/* if (window.innerHeight > window.innerWidth) {
-    canvasSize = window.innerWidth * 0.7 + 30;
-} else {
-    if (window.innerWidth < 1660) {
-        canvasSize = window.innerWidth * 0.35 + 30;
-    } else {
-        canvasSize = window.innerHeight * 0.68 + 30;
-    }
-} */
+// -- Start Game and Play Again events --
+startButton.addEventListener('click', play);
+tryAgainButton.addEventListener('click', tryAgain);
 
 
 // -- Setting canvas size --
@@ -94,8 +82,6 @@ function setCanvasSize() {
     } else {
         scrollDown.classList.add('inactive');
     }
-    
-
 
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
@@ -104,6 +90,7 @@ function setCanvasSize() {
 
     startGame();
 }
+
 
 // -- Rendering the map and the player after each move --
 function startGame() {
@@ -118,13 +105,6 @@ function startGame() {
         win();
         return;
     }
-
-    /* if (!timeStart) {
-        timeStart = Date.now();
-        timeInterval = setInterval(showTime, 0.0000000000001);
-        showRecord();
-    } */
-    
 
     const mapRows = map.trim().split('\n');
     const mapRowsCols = mapRows.map(row => row.trim().split(''));
@@ -158,8 +138,6 @@ function startGame() {
                     x: posX,
                     y: posY,
                 });
-                
-                // console.log({bombsPos});
             }
 
             game.fillText(emoji, posX, posY);
@@ -172,9 +150,6 @@ function startGame() {
 
 // -- Render player position --
 function movePlayer() {
-    // const giftCollisionX = playerPos.x < giftPos.x + 0.1 && playerPos.x > giftPos.x - 0.1;
-    // const giftCollisionY = playerPos.y < giftPos.y + 0.1 && playerPos.y > giftPos.y - 0.1; 
-    
     const giftCollisionX = playerPos.x.toFixed(3) == giftPos.x.toFixed(3); 
     const giftCollisionY = playerPos.y.toFixed(3) == giftPos.y.toFixed(3);
     const giftCollision = giftCollisionX && giftCollisionY;
@@ -190,7 +165,6 @@ function movePlayer() {
     });
 
     if (bombCollision) {
-        /* game.fillText(emojis['COLLISION'], playerPos.x, playerPos.y);  */
         lose();
     }
 
@@ -198,8 +172,9 @@ function movePlayer() {
     game.fillText(emojis['PLAYER'], playerPos.x, playerPos.y); 
 }
 
+
 function levelUp() {
-    console.log('Level up Gorzobia!');
+    /* console.log('Level up Gorzobia!'); */
     level++;
 
     const map = maps[level];
@@ -212,8 +187,9 @@ function levelUp() {
     startGame();
 }
 
+
 function lose() {
-    console.log('No te tocaba, mano. Qué tristeza :c');
+    /* console.log('No te tocaba, mano. Qué tristeza :c'); */
 
     game.fillText(emojis['COLLISION'], playerPos.x, playerPos.y);
 
@@ -228,10 +204,26 @@ function lose() {
         timeStart = undefined;
         startButton.classList.add('inactive');
         tryAgainButton.classList.remove('inactive');
-        playerResult.innerHTML = 'You lose all your lives 💀. Try again.';
-        /* setTimeout(playAgain, 3500) */
+
+        // Create modal content
+        const spanClose = document.createElement('span');
+        spanClose.classList.add('close');
+
+        const h1 = document.createElement('h1');
+        const p = document.createElement('p');
+
+        h1.classList.add('text-lose');
+        const h1Text = document.createTextNode('LOSE');
+        const pText = document.createTextNode('You lose all your lives 💀. Try again.');
+
+        h1.append(h1Text);
+        p.append(pText);
+        playerResult.innerHTML = '';
+        playerResult.append(spanClose, h1, p);
+        modal.style.display = 'block';
+        
         // Do something in PlayAgain!! and remove return
-        return
+        // return
     }
     
     playerPos.x = undefined;
@@ -242,35 +234,56 @@ function lose() {
     /* startGame(); */
 }
 
+
 function win() {
-    console.log('You have completed the game, Manito');
-    // Win message <--
+    /* console.log('You have completed the game, Manito'); */
+    // Win message
     clearInterval(timeInterval);
     
-    // function setRecord() ***
+    // setRecord
     const recordTime = localStorage.getItem('record_time');
     let playerTime = ((Date.now() - timeStart)/1000).toFixed(2);
     playerTime = Number(playerTime);
+
+    // Create modal content
+    const spanClose = document.createElement('span');
+    spanClose.classList.add('close');
+
+    const h1 = document.createElement('h1');
+    const p = document.createElement('p');
+
+    h1.classList.add('text-win');
+    const h1Text = document.createTextNode('VICTORY');
+    let pText;
 
     if (recordTime) {
         if (recordTime >= playerTime) {
             startButton.classList.add('inactive');
             tryAgainButton.classList.remove('inactive');
             localStorage.setItem('record_time', playerTime);
-            playerResult.innerHTML = `You won and set a new record! Your time: ${playerTime} s. Prove yourself again 😌`;
+            
+            pText = document.createTextNode(`You won and set a new record! Your time: ${playerTime} s. Prove yourself again 😌`)         
         } else {
             startButton.classList.add('inactive');
             tryAgainButton.classList.remove('inactive');
-            playerResult.innerHTML = `You won, but you did not beat the record 💀. Your time: ${playerTime} s`;
+            
+            pText = document.createTextNode(`You won, but you didn't beat the record 💀. Your time: ${playerTime} s`)
         }
     } else {
         startButton.classList.add('inactive');
         tryAgainButton.classList.remove('inactive');
         localStorage.setItem('record_time', playerTime);
-        playerResult.innerHTML = `You won and set a new record! Your time: ${playerTime} s. Prove yourself again 😌`;
+    
+        pText = document.createTextNode(`You won and set a new record! Your time: ${playerTime} s. Prove yourself again 😌`);
     }
 
-    console.log({recordTime, playerTime});
+    /* console.log({recordTime, playerTime}); */
+
+    h1.append(h1Text);
+    p.append(pText);
+    playerResult.innerHTML = '';
+    playerResult.append(spanClose, h1, p);
+    modal.style.display = 'block';
 }
 
 
@@ -285,8 +298,6 @@ function play() {
     }
 }
 
-startButton.addEventListener('click', play);
-
 
 function tryAgain() {
     playerPos.x = undefined;
@@ -298,8 +309,6 @@ function tryAgain() {
 
     play()
 }
-
-tryAgainButton.addEventListener('click', tryAgain)
 
 
 function reset() {
@@ -393,5 +402,35 @@ function moveDown() {
             playerPos.y += elementsSize;
             startGame();
         }  
+    }
+}
+
+
+// -- Clear modal function --
+function clearModal(e) {
+    closeBtn = document.querySelector('.close');
+  
+    if (e.target == modal) {
+        modal.style.display = "none"
+        playerPos.x = undefined;
+        playerPos.y = undefined;
+        playerResult.innerHTML = '';
+        level = 0;
+        lives = 3;
+        timeStart = undefined;
+
+        startGame()
+    } else if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = "none"
+            playerPos.x = undefined;
+            playerPos.y = undefined;
+            playerResult.innerHTML = '';
+            level = 0;
+            lives = 3;
+            timeStart = undefined;
+
+            startGame()
+      })
     }
 }

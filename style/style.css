@@ -204,12 +204,12 @@ button:hover {
   align-items: center;
 }
 
-.btns #result {
+/* .btns #result {
   height: 20rem;
   width: 19.2vw;
   line-height: 3.2rem;
   font-size: 1.8rem;
-}
+} */
 
 
 @media(max-width: 1570px) {
@@ -252,10 +252,10 @@ button:hover {
     padding: 10px;
     font-size: 2.2rem;
   }
-  .btns #result {
+  /* .btns #result {
     line-height: 2.9rem;
     font-size: 1.7rem;
-  }
+  } */
 }
 
 @media(max-width: 1100px) {
@@ -267,8 +267,8 @@ button:hover {
   .game__text p {
     margin-bottom: 40px;
   }
-  .btns #result {
+  /* .btns #result {
     line-height: 3rem;
     font-size: 1.6rem;
-  }
+  } */
 }

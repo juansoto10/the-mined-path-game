@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="./style/style.css">
-      <link rel="stylesheet" href="./style/medium.css" media="screen and (max-width: 1000px)">
-      <link rel="stylesheet" href="./style/small.css" media="screen and (max-width: 670px)">
-      <title>The Minefield Game</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/medium.css" media="screen and (max-width: 1000px)">
+    <link rel="stylesheet" href="./style/small.css" media="screen and (max-width: 670px)">
+    <link rel="stylesheet" href="./style/modal.css">
+    <title>Play The Minefield Game Here | JavaScript Game by Juan Soto</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon/site.webmanifest">
   </head>
   <body>
     <div class="game-cont">
@@ -53,9 +59,10 @@
           <button id="reset">Reset</button>
         </div>
 
-
-        <p id="result"></p>
-      </div>   
+        <div class="modal">
+          <div id="result" class="modal-content"></div>
+        </div>
+      </div>
     </div>
 
     <script src="./js/maps.js"></script>

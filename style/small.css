@@ -124,22 +124,22 @@ button:not(:last-child) {
   margin-bottom: 5px;
 }
 
-.btns #result {
+/* .btns #result {
   width: 18rem;
   height: 94px;
   font-size: 1.1rem;
   line-height: 1.7rem;
   padding: 0 0 0 15px;
-}
+} */
 
 
 @media(max-width: 550px) {
-  .btns #result {
+/*   .btns #result {
     width: calc(100vw - 370px);
     font-size: 1rem;
     line-height: 1.6rem;
     height: calc(100% - 20px)
-  }
+  } */
 }
 
 @media(max-width: 510px) {
@@ -149,11 +149,11 @@ button:not(:last-child) {
     font-size: 1.3rem;
     min-width: 80px;
   }
-  .btns #result {
+/*   .btns #result {
     width: calc(100vw - 320px);
     height: calc(100% - 22px);
     font-size: 1rem;
-  }
+  } */
   .canvas-cont {
     height: 75vh;
   }
@@ -183,13 +183,13 @@ button:not(:last-child) {
     margin-bottom: 40px;
   }
 
-  .btns #result {
+/*   .btns #result {
     width: calc(100vw - 30px);
     height: 55px;
     font-size: 1rem;
     padding: 20px 0 10;
     text-align: center;
-  }
+  } */
 }
 
 @media(max-width: 360px) {
