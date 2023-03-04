@@ -55,7 +55,7 @@ tryAgainButton.addEventListener('click', tryAgain);
 
 // -- Setting canvas size --
 function setCanvasSize() {
-    if (window.innerHeight >= 826) {
+    /*if (window.innerHeight >= 826) {
         if (window.innerWidth <= 670) {
             canvasSize = window.innerWidth * 0.58 + 30;
         } else if (window.innerWidth <= 1000) {
@@ -75,6 +75,27 @@ function setCanvasSize() {
         } else if (window.innerWidth > 670 && window.innerHeight < 510) {
             canvasSize = window.innerHeight * 0.62 + 30;
         } 
+    } */
+
+    if (window.innerHeight >= 800) {
+        if (window.innerWidth <= 1000) {
+            canvasSize = window.innerWidth * 0.35 + 30;
+        } else {
+            canvasSize = window.innerWidth * 0.32 + 30;
+        }
+        
+    } else {
+        if (window.innerWidth > 1000) {
+            canvasSize = window.innerHeight * 0.62 + 30;
+        } else {
+            if (window.innerWidth <= 670 && window.innerWidth > 510) {
+                canvasSize = window.innerWidth * 0.54 + 30;
+            } else if (window.innerWidth <= 510) {
+                canvasSize = window.innerWidth * 0.65 + 30;
+            } else if (window.innerWidth > 670) {
+                canvasSize = window.innerWidth * 0.5 + 30;
+            }
+        }
     }
     
     if (window.innerWidth <= 1000) {
