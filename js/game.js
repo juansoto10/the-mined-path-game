@@ -86,7 +86,7 @@ function setCanvasSize() {
         
     } else {
         if (window.innerWidth > 1000) {
-            canvasSize = window.innerHeight * 0.62 + 30;
+            canvasSize = window.innerWidth * 0.32 + 30;
         } else {
             if (window.innerWidth <= 670 && window.innerWidth > 510) {
                 canvasSize = window.innerWidth * 0.54 + 30;
